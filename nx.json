@@ -9,5 +9,7 @@
       "default"
     ],
     "sharedGlobals": []
-  }
+  },
+  "nxCloudAccessToken": "NTQ4MmRmYmMtNjZlNC00OTI3LThjOWQtYWEyZWY5YzUyNDZhfHJlYWQtd3JpdGU=",
+  "nxCloudUrl": "https://staging.nx.app"
 }
