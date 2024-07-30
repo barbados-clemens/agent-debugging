@@ -1,13 +1,8 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
-    "production": [
-      "default"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": ["default"],
     "sharedGlobals": []
   },
   "targetDefaults": {
@@ -21,6 +16,7 @@
       "cache": true
     }
   },
-  "nxCloudAccessToken": "ZTFmZjE5MTEtOTNhYS00MmNiLTkwYTMtMGQ2ZWJkZDg3OGU3fHJlYWQtd3JpdGU=",
-  "nxCloudUrl": "http://localhost:4203"
+  "bust": 1,
+  "nxCloudAccessToken": "NTQ4MmRmYmMtNjZlNC00OTI3LThjOWQtYWEyZWY5YzUyNDZhfHJlYWQtd3JpdGU=",
+  "nxCloudUrl": "https://staging.nx.app"
 }
