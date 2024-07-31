@@ -9,15 +9,15 @@ launch-templates:
         script: ls -al $HOME
 
       - name: Checkout
-        uses: "nrwl/nx-cloud-workflows/v4/workflow-steps/checkout/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/main/workflow-steps/checkout/main.yaml"
       - name: Restore Node Modules Cache
-        uses: "nrwl/nx-cloud-workflows/v4/workflow-steps/cache/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/main/workflow-steps/cache/main.yaml"
         inputs:
           key: "package-lock.json|yarn.lock|pnpm-lock.yaml"
           paths: "node_modules"
           base-branch: "main"
       - name: Restore Maven/Gradle/SDKMan Cache
-        uses: "nrwl/nx-cloud-workflows/v4/workflow-steps/cache/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/main/workflow-steps/cache/main.yaml"
         inputs:
           key: '**/pom.xml|**/build.gradle|**/build.gradle.kts|**/settings.gradle|**/settings.gradle.kts|"v1"'
           paths: |
@@ -27,7 +27,7 @@ launch-templates:
           base-branch: "main"
 
       - name: Restore Flutter Cache
-        uses: "nrwl/nx-cloud-workflows/v4/workflow-steps/cache/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/main/workflow-steps/cache/main.yaml"
         inputs:
           key: '"flutter-sdk"|**/pubspec.yaml|"v1"'
           paths: |
@@ -36,7 +36,7 @@ launch-templates:
           base-branch: "main"
 
       - name: Restore Android Cache
-        uses: "nrwl/nx-cloud-workflows/v4/workflow-steps/cache/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/main/workflow-steps/cache/main.yaml"
         inputs:
           key: '"android-sdk"|"v1"'
           paths: |
@@ -54,7 +54,7 @@ launch-templates:
           fi
 
       - name: Install Node Modules
-        uses: "nrwl/nx-cloud-workflows/v4/workflow-steps/install-node-modules/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/main/workflow-steps/install-node-modules/main.yaml"
 
       - name: Install required System tools
         script: |
