@@ -9,39 +9,39 @@ launch-templates:
         script: ls -al $HOME
 
       - name: Checkout
-        uses: "nrwl/nx-cloud-workflows/main/workflow-steps/checkout/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/checkout/main.yaml"
       - name: Restore Node Modules Cache
-        uses: "nrwl/nx-cloud-workflows/main/workflow-steps/cache/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/cache/main.yaml"
         inputs:
           key: "package-lock.json|yarn.lock|pnpm-lock.yaml"
           paths: "node_modules"
-          base-branch: "main"
+          base-branch: "cache-step-expand-globs"
       - name: Restore Maven/Gradle/SDKMan Cache
-        uses: "nrwl/nx-cloud-workflows/main/workflow-steps/cache/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/cache/main.yaml"
         inputs:
           key: '**/pom.xml|**/build.gradle|**/build.gradle.kts|**/settings.gradle|**/settings.gradle.kts|"v1"'
           paths: |
             ../.m2/repository
             ../.gradle/caches
             ../.sdkman
-          base-branch: "main"
+          base-branch: "cache-step-expand-globs"
 
       - name: Restore Flutter Cache
-        uses: "nrwl/nx-cloud-workflows/main/workflow-steps/cache/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/cache/main.yaml"
         inputs:
           key: '"flutter-sdk"|**/pubspec.yaml|"v1"'
           paths: |
             ../flutter
             ../.pub-cache
-          base-branch: "main"
+          base-branch: "cache-step-expand-globs"
 
       - name: Restore Android Cache
-        uses: "nrwl/nx-cloud-workflows/main/workflow-steps/cache/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/cache/main.yaml"
         inputs:
           key: '"android-sdk"|"v1"'
           paths: |
             ../android/sdk
-          base-branch: "main"
+          base-branch: "cache-step-expand-globs"
 
       - name: "Post Restore: List Installed Tools"
         script: |
@@ -54,7 +54,7 @@ launch-templates:
           fi
 
       - name: Install Node Modules
-        uses: "nrwl/nx-cloud-workflows/main/workflow-steps/install-node-modules/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/install-node-modules/main.yaml"
 
       - name: Install required System tools
         script: |
