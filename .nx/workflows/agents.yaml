@@ -21,21 +21,31 @@ launch-templates:
         inputs:
           key: "nx.json"
           paths: |
+            "../blah_dir/*"
             "../blah.txt"
 
       - name: "List HOME dir"
         script: |
           ls -al $HOME
+          if [ -d "../blah_dir" ]; then
+            echo "Directory exists"
+            ls -al $HOME/blah_dir
+          else
+            echo "Directory does not exist"
+          fi
 
       - name: Install Node Modules
         uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/install-node-modules/main.yaml"
       - name: "add blah.txt to HOME dir"
         script: |
           echo $(date +%s) > $HOME/blah.txt
+          mkdir -p $HOME/blah_dir
+          echo $(date +%s) > $HOME/blah_dir/blah.txt
 
       - name: "List HOME dir after"
         script: |
           ls -al $HOME
+          ls -al $HOME/blah_dir
 
       - name: "System Environment Variables"
         script: env
