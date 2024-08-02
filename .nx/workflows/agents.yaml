@@ -1,11 +1,11 @@
 launch-templates:
   linux-medium-js-java-flutter:
     resource-class: "docker_linux_amd64/medium"
-    image: "ubuntu22.04-node20.11-v7"
+    image: "ubuntu22.04-node20.11-v10"
     init-steps:
       - name: System Environment Variables
         script: env
-      - name: List Installed Tools
+      - name: List HOME dir before
         script: ls -al $HOME
 
       - name: Checkout
@@ -19,12 +19,12 @@ launch-templates:
       - name: Restore file from outside workspace root
         uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/cache/main.yaml"
         inputs:
-          key: "nx.json"
+          key: "nx.json|.nx/workflows/**/*"
           paths: |
-            "../blah_dir/*"
+            "../blah_dir/**/*"
             "../blah.txt"
 
-      - name: "List HOME dir"
+      - name: "List HOME dir after restore"
         script: |
           ls -al $HOME
           if [ -d "../blah_dir" ]; then
@@ -36,16 +36,19 @@ launch-templates:
 
       - name: Install Node Modules
         uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/install-node-modules/main.yaml"
+
       - name: "add blah.txt to HOME dir"
         script: |
-          echo $(date +%s) > $HOME/blah.txt
+          echo $(date +%s) >> $HOME/blah.txt
           mkdir -p $HOME/blah_dir
-          echo $(date +%s) > $HOME/blah_dir/blah.txt
+          echo $(date +%s) >> $HOME/blah_dir/nested.txt
 
       - name: "List HOME dir after"
         script: |
           ls -al $HOME
           ls -al $HOME/blah_dir
+          cat $HOME/blah.txt
+          cat $HOME/blah_dir/nested.txt
 
       - name: "System Environment Variables"
         script: env
