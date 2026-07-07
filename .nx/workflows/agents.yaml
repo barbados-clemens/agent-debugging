@@ -9,15 +9,15 @@ launch-templates:
         script: ls -al $HOME
 
       - name: Checkout
-        uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/checkout/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/cloud-4682-scrub-log-output/workflow-steps/checkout/main.yaml"
       - name: Restore Node Modules Cache
-        uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/cache/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/cloud-4682-scrub-log-output/workflow-steps/cache/main.yaml"
         inputs:
           key: "package-lock.json|yarn.lock|pnpm-lock.yaml"
           paths: "node_modules"
           base-branch: "cache-step-expand-globs"
       - name: Restore file from outside workspace root
-        uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/cache/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/cloud-4682-scrub-log-output/workflow-steps/cache/main.yaml"
         inputs:
           key: "nx.json|.nx/workflows/**/*"
           paths: |
@@ -35,7 +35,7 @@ launch-templates:
           fi
 
       - name: Install Node Modules
-        uses: "nrwl/nx-cloud-workflows/cache-step-expand-globs/workflow-steps/install-node-modules/main.yaml"
+        uses: "nrwl/nx-cloud-workflows/cloud-4682-scrub-log-output/workflow-steps/install-node-modules/main.yaml"
 
       - name: "add blah.txt to HOME dir"
         script: |
