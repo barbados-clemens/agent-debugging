@@ -29,13 +29,15 @@ staircase=$!
 # 2. labeled: postgres taking inserts (testcontainers-style service sidecar)
 docker run -d --rm "${labels[@]}" --name "pg-$variant" \
   -e POSTGRES_PASSWORD=poc postgres:16-alpine >/dev/null
+# -h 127.0.0.1 forces TCP: the image entrypoint's temporary init server only
+# listens on the unix socket, so this can't pass until the real server is up
 for _ in $(seq 1 30); do
-  docker exec "pg-$variant" pg_isready -U postgres >/dev/null 2>&1 && break
+  docker exec "pg-$variant" pg_isready -h 127.0.0.1 -U postgres >/dev/null 2>&1 && break
   sleep 1
 done
-docker exec "pg-$variant" psql -U postgres -q -c 'create table load (id serial, data text);'
+docker exec "pg-$variant" psql -h 127.0.0.1 -U postgres -q -c 'create table load (id serial, data text);'
 for _ in $(seq 1 10); do
-  docker exec "pg-$variant" psql -U postgres -q \
+  docker exec "pg-$variant" psql -h 127.0.0.1 -U postgres -q \
     -c "insert into load(data) select md5(random()::text) from generate_series(1,20000);"
 done
 docker stop "pg-$variant" >/dev/null
