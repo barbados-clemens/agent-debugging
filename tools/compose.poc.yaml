@@ -1,0 +1,12 @@
+# Background services started by a setup step (docker compose up -d) before
+# any task runs. Nothing tears them down — they live for the whole agent
+# lifetime, so their spans overlap every task and get flushed by the observer
+# post step as endReason=observer-shutdown. No nx labels/env on purpose: the
+# observer clusters them by the com.docker.compose.project label.
+services:
+  bg-cache:
+    image: redis:7-alpine
+    container_name: bg-redis
+  bg-web:
+    image: nginx:alpine
+    container_name: bg-nginx

@@ -9,6 +9,8 @@ launch-templates:
         uses: "barbados-clemens/testing-steps/main/ci-step/template.yaml"
         env:
           OBSERVER_BIN_URL: "https://raw.githubusercontent.com/barbados-clemens/testing-steps/main/bin/observer-linux-amd64"
+      - name: Start background services (compose)
+        script: docker compose -f tools/compose.poc.yaml up -d
       - name: Restore Node Modules Cache
         uses: "nrwl/nx-cloud-workflows/v5/workflow-steps/cache/main.yaml"
         inputs:

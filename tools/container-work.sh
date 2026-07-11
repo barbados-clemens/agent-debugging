@@ -40,7 +40,13 @@ for _ in $(seq 1 10); do
 done
 docker stop "pg-$variant" >/dev/null
 
-# 3. unlabeled short-lived container
+# 3. env-passed: no labels — forwards the NX_TASK_TARGET_* vars nx set on
+#    this task process; the observer attributes from the container's env
+docker run --rm --shm-size=128m --name "envpass-$variant" \
+  -e NX_TASK_TARGET_PROJECT -e NX_TASK_TARGET_TARGET \
+  alpine sh -c 'dd if=/dev/zero of=/dev/shm/x bs=1M count=32 2>/dev/null; md5sum /dev/shm/x >/dev/null; sleep 4; echo envpass done'
+
+# 4. unlabeled short-lived container
 docker run --rm --name "unlabeled-$variant" alpine sh -c 'sleep 3; echo unlabeled done'
 
 wait "$staircase"
