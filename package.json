@@ -5,7 +5,9 @@
   "scripts": {
     "lint": "echo lint",
     "test": "echo test",
-    "build": "echo build"
+    "build": "echo build",
+    "containers-a": "bash tools/container-work.sh a",
+    "containers-b": "bash tools/container-work.sh b"
   },
   "private": true,
   "dependencies": {},

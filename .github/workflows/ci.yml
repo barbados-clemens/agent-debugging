@@ -20,7 +20,7 @@ jobs:
 
       # Connect your workspace on staging.nx.app and uncomment this to enable task distribution.
       # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "build" targets have been requested
-      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js-java-flutter"
+      - run: npx nx-cloud start-ci-run --distribute-on="2 observer-poc"
 
       # Cache node_modules
       - uses: actions/setup-node@v3
@@ -33,4 +33,4 @@ jobs:
 
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
       # - run: npx nx-cloud record -- echo Hello World
-      - run: npx nx run-many -t lint test build
+      - run: npx nx run-many -t lint test build containers-a containers-b

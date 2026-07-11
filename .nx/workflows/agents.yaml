@@ -1,4 +1,22 @@
 launch-templates:
+  observer-poc:
+    resource-class: "docker_linux_amd64/medium"
+    image: "ubuntu22.04-node20.11-v10"
+    init-steps:
+      - name: Checkout
+        uses: "nrwl/nx-cloud-workflows/v5/workflow-steps/checkout/main.yaml"
+      - name: Container Observer (PoC)
+        uses: "barbados-clemens/testing-steps/main/ci-step/template.yaml"
+        env:
+          OBSERVER_BIN_URL: "https://raw.githubusercontent.com/barbados-clemens/testing-steps/main/bin/observer-linux-amd64"
+      - name: Restore Node Modules Cache
+        uses: "nrwl/nx-cloud-workflows/v5/workflow-steps/cache/main.yaml"
+        inputs:
+          key: "package-lock.json"
+          paths: "node_modules"
+      - name: Install Node Modules
+        uses: "nrwl/nx-cloud-workflows/v5/workflow-steps/install-node-modules/main.yaml"
+
   linux-medium-js-java-flutter:
     resource-class: "docker_linux_amd64/medium"
     image: "ubuntu22.04-node20.11-v10"
