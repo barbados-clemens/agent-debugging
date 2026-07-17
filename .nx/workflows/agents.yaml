@@ -8,7 +8,7 @@ launch-templates:
       # Pinned by SHA: the executor caches raw.githubusercontent step files in
       # valkey for 1h, so a `main` ref can serve a stale script after a push.
       - name: Container Observer (PoC)
-        uses: "barbados-clemens/testing-steps/3e055254cb2ae41027df2991af50029953cc98da/ci-step/template.yaml"
+        uses: "barbados-clemens/testing-steps/f65fa6ef2625a22a535c7ad081ee99e8c9c207f0/ci-step/template.yaml"
       - name: Start background services (compose)
         script: docker compose -f tools/compose.poc.yaml up -d
       - name: Restore Node Modules Cache
