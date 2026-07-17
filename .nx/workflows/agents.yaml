@@ -5,10 +5,10 @@ launch-templates:
     init-steps:
       - name: Checkout
         uses: "nrwl/nx-cloud-workflows/v5/workflow-steps/checkout/main.yaml"
+      # Pinned by SHA: the executor caches raw.githubusercontent step files in
+      # valkey for 1h, so a `main` ref can serve a stale script after a push.
       - name: Container Observer (PoC)
-        uses: "barbados-clemens/testing-steps/main/ci-step/template.yaml"
-        env:
-          OBSERVER_BIN_URL: "https://raw.githubusercontent.com/barbados-clemens/testing-steps/main/bin/observer-linux-amd64"
+        uses: "barbados-clemens/testing-steps/efd1d3ff24dca0e0a110189015c87d9b18247645/ci-step/template.yaml"
       - name: Start background services (compose)
         script: docker compose -f tools/compose.poc.yaml up -d
       - name: Restore Node Modules Cache
